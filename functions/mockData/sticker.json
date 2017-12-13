@@ -1,0 +1,34 @@
+{
+  "update_id": 358037075,
+  "message": {
+    "message_id": 9,
+    "from": {
+      "id": 96351452,
+      "is_bot": false,
+      "first_name": "\u0418\u043b\u044c\u044f",
+      "last_name": "\u0421\u043e\u043b\u043e\u0445\u0438\u043d",
+      "username": "solohin_ilya",
+      "language_code": "en"
+    },
+    "chat": {
+      "id": -1001245604961,
+      "title": "Test",
+      "type": "supergroup"
+    },
+    "date": 1513128293,
+    "sticker": {
+      "width": 512,
+      "height": 512,
+      "emoji": "\ud83d\udcaa",
+      "set_name": "ituber",
+      "thumb": {
+        "file_id": "AAQCABPvueMNAASne4UqvC8_UcMTAAIC",
+        "file_size": 6596,
+        "width": 128,
+        "height": 128
+      },
+      "file_id": "CAADAgADCAADiIqtFjx16nNifcqyAg",
+      "file_size": 30992
+    }
+  }
+}
