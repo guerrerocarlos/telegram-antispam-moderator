@@ -1,7 +1,7 @@
 {
   "update_id": 358037070,
   "message": {
-    "message_id": 4,
+    "message_id": 4000,
     "from": {
       "id": 96351452,
       "is_bot": false,
@@ -11,12 +11,12 @@
       "language_code": "en"
     },
     "chat": {
-      "id": -1001245604961,
+      "id": -100000009999,
       "title": "Test",
       "type": "supergroup"
     },
     "date": 1513100650,
-    "text": "http://httpbin.org/user-agent?test=1 http://httpbin.org/user-agent?test=1 http://httpbin.org/user-agent?test=1",
+    "text": "http://httpbin.org/user-agent?test=1 http://second2.org/user-agent?test=1 http://third333.org/user-agent?test=1",
     "entities": [
       {
         "offset": 0,

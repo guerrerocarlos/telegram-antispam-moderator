@@ -26,4 +26,9 @@ module.exports = {
             }, {merge: true});
         });
     },
+    getGroup: async (chatId) => {
+        const docRef = db.collection('groups').doc('' + chatId);
+        const doc = await docRef.get();
+        return (doc.data() || {});
+    },
 };

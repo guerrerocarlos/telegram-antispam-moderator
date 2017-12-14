@@ -11,12 +11,14 @@
   "dependencies": {
     "firebase-admin": "~5.4.2",
     "firebase-functions": "^0.7.1",
+    "deepmerge": "^2.0.1",
     "node-telegram-bot-api": "^0.29.0"
   },
   "private": true,
   "devDependencies": {
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
     "chai": "^4.1.2",
-    "deepmerge": "^2.0.1",
     "jest": "^21.2.1"
   }
 }

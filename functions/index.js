@@ -1,3 +1,4 @@
+require('./components/bot');
 const handle = require('./handlers/handle');
 const functions = require('firebase-functions');
 
