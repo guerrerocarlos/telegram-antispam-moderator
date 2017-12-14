@@ -3,7 +3,7 @@
 //modules
 //init
 
-const handlerNames = ['botCommand', 'addToChat', 'link'];
+const handlerNames = ['botCommand', 'addToChat', 'link', 'mention', 'sticker','image'];
 
 const handlers = handlerNames.map(name => require(`./${name}/${name}`));
 

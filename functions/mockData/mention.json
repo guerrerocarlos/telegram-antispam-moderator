@@ -3,7 +3,7 @@
   "message": {
     "message_id": 7,
     "from": {
-      "id": 96351452,
+      "id": 400000000,
       "is_bot": false,
       "first_name": "\u0418\u043b\u044c\u044f",
       "last_name": "\u0421\u043e\u043b\u043e\u0445\u0438\u043d",
@@ -11,7 +11,7 @@
       "language_code": "en"
     },
     "chat": {
-      "id": -1001245604961,
+      "id": -4900000000,
       "title": "Test",
       "type": "supergroup"
     },

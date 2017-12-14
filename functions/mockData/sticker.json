@@ -1,7 +1,7 @@
 {
   "update_id": 358037075,
   "message": {
-    "message_id": 9,
+    "message_id": 90009,
     "from": {
       "id": 96351452,
       "is_bot": false,
@@ -11,7 +11,7 @@
       "language_code": "en"
     },
     "chat": {
-      "id": -1001245604961,
+      "id": -8000000089,
       "title": "Test",
       "type": "supergroup"
     },
