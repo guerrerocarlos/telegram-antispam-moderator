@@ -9,10 +9,11 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
+    "deepmerge": "^2.0.1",
     "firebase-admin": "~5.4.2",
     "firebase-functions": "^0.7.1",
-    "deepmerge": "^2.0.1",
-    "node-telegram-bot-api": "^0.29.0"
+    "node-telegram-bot-api": "^0.29.0",
+    "parse-link": "^1.0.1"
   },
   "private": true,
   "devDependencies": {
