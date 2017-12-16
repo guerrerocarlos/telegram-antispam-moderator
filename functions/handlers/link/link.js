@@ -19,53 +19,46 @@ module.exports = async function (message) {
     const domain = parseLink(link).hostname;
     const {managers} = await db.getGroup(chat.id);
 
-    const messagePromises = managers.map(managerId => bot.forwardMessage(managerId, chat.id, message_id));
-
-    const messageText = `В собщении содержится ссылка [${link}](${link}).
+    const newMessageText = `В собщении содержится ссылка [${link}](${link}).
 Сообщение можно просто удалить, удалить блокировкой ссылки или всего домена.
 На автора можно повесить запрет сообщений или запрет на ссылки, стикеры, картинки и документы в сообщениях.`;
 
-    const controlPromises = managers.map(managerId => bot.sendMessage(managerId, messageText, {
-        reply_markup: {
-            inline_keyboard:
-                [
-                    [
-                        {
-                            text: 'Все ок',
-                            callback_data: `approve_${chat.id}_${message_id}`
-                        },
-                        {
-                            text: 'Только удалить',
-                            url: 'http://google.com'
-                        },
-                    ],
-                    [
+    const messagePromises = managers.map(async function (managerId) {
+        const forwardedMessage = await bot.forwardMessage(managerId, chat.id, message_id);
 
-                        {
-                            text: 'Домен в blacklist ' + domain,
-                            url: 'http://google.com'
-                        },
-                        {
-                            text: 'Ссылку в blacklist',
-                            url: 'http://google.com'
-                        },
-                    ],
+        await bot.sendMessage(managerId, newMessageText, {
+            reply_to_message_id: forwardedMessage.message_id,
+            reply_markup: {
+                inline_keyboard:
                     [
+                        [
+                            {
+                                text: 'Все ок',
+                                callback_data: `approve_${chat.id}_${message_id}`
+                            },
+                            {
+                                text: 'Бан+Удалить сообщение',
+                                callback_data: `deleteOriginal_${chat.id}_${message_id}`
+                            },
+                        ],
+                        [
+                            {
+                                text: 'Бан+Домен в blacklist ' + domain,
+                                url: 'http://google.com'
+                            },
+                            {
+                                text: 'Бан+Ссылку в blacklist',
+                                url: 'http://google.com'
+                            },
+                        ]
+                    ]
+            },
+            parse_mode: 'Markdown'
+        });
+    });
 
-                        {
-                            text: 'Бан автора',
-                            url: 'http://google.com'
-                        },
-                        {
-                            text: 'Запрет автору ссылки и медиа',
-                            url: 'http://google.com'
-                        },
-                    ],
-                ]
-        },
-        parse_mode: 'Markdown'
-    }));
-    await Promise.all([...controlPromises, ...messagePromises]);
+
+    await messagePromises;
 
     return true;
 };

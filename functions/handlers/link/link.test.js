@@ -33,4 +33,24 @@ describe('New link', () => {
         assert.strictEqual(-100000009999, fromChatId2);
         assert.strictEqual(4000, messageId2);
     });
+    it('should send controll message to all managers', () => {
+        assert.strictEqual(2, bot.sendMessage.mock.calls.length);
+        const [call1, call2] = bot.sendMessage.mock.calls;
+
+        assert.strictEqual(12399999, call1[0]);
+        assert.strictEqual(99, call1[2].reply_to_message_id);
+
+        assert.strictEqual(12377777, call2[0]);
+        assert.strictEqual(99, call2[2].reply_to_message_id);
+    });
+    it('should create approve link', () => {
+        const [,,{reply_markup}] = bot.sendMessage.mock.calls[0];
+        const approveCallback = reply_markup.inline_keyboard[0][0].callback_data;
+        assert.strictEqual('approve_-100000009999_4000', approveCallback);
+    });
+    it('should create delete link', () => {
+        const [,,{reply_markup}] = bot.sendMessage.mock.calls[0];
+        const deleteCallback = reply_markup.inline_keyboard[0][1].callback_data;
+        assert.strictEqual('deleteOriginal_-100000009999_4000', deleteCallback);
+    });
 });

@@ -3,12 +3,9 @@
 //modules
 const bot = require('../../components/bot');
 //init
-module.exports = function ({callbackMessageId, payload: [chatId, messageId]}) {
-    chatId = parseInt(chatId);
-    callbackMessageId = parseInt(callbackMessageId);
-    messageId = parseInt(messageId);
+module.exports = function ({message, payload: [chatId, messageId]}) {
     return Promise.all([
-        bot.deleteMessage(chatId, messageId),
-        bot.deleteMessage(chatId, callbackMessageId)
+        bot.deleteMessage(message.chat.id, message.message_id),
+        bot.deleteMessage(message.chat.id, message.reply_to_message.message_id)
     ]);
 };
