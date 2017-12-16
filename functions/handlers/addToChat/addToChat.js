@@ -5,7 +5,10 @@ const bot = require('../../components/bot');
 const db = require('../../components/db');
 const config = require('../../config');
 //init
-module.exports = function ({from, chat, new_chat_member}) {
+module.exports = function (message) {
+    if (!message) return;
+    const {from, chat, new_chat_member} = message;
+
     if (!new_chat_member || new_chat_member.username !== config.BOT_USERNAME) {
         return Promise.resolve(null);
     }

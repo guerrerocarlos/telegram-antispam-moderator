@@ -4,7 +4,7 @@
 const start = require('./start');
 //init
 module.exports = function (message) {
-    if (message.text === '/start' && message.chat.type === 'private') {
+    if (message && message.text === '/start' && message.chat.type === 'private') {
         return start(message);
     } else {
         return Promise.resolve(null);

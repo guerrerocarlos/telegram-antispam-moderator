@@ -6,7 +6,10 @@ const db = require('../../components/db');
 const extractEnteties = require('../../components/extractEnteties');
 const config = require('../../config');
 //init
-module.exports = async function ({entities, message_id, chat, text}) {
+module.exports = async function (message) {
+    if(!message)return;
+    const {entities, message_id, chat, text} = message;
+
     const mentions = extractEnteties({text, entities}, 'mention');
     if (mentions.length === 0) {
         return Promise.resolve(null);

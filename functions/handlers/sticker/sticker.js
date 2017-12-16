@@ -4,7 +4,10 @@
 const bot = require('../../components/bot');
 const db = require('../../components/db');
 //init
-module.exports = async function ({sticker, message_id, chat}) {
+module.exports = async function (message) {
+    if (!message) return;
+    const {sticker, message_id, chat} = message;
+
     if (!sticker) return Promise.resolve(null);
 
     const {managers} = await db.getGroup(chat.id);
