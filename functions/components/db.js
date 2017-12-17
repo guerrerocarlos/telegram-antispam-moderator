@@ -12,8 +12,7 @@ admin.initializeApp(functions.config().firebase);
 
 const db = admin.firestore();
 
-
-module.exports = {
+const database = {
     addManager: ({chatId, managerId}) => {
         const docRef = db.collection('groups').doc('' + chatId);
         return docRef.get().then(doc => {
@@ -55,4 +54,13 @@ module.exports = {
         const doc = await docRef.get();
         return (doc.data() || {});
     },
+    getBlacklistedDomains: async (chatId) => {
+        const group = await database.getGroup(chatId);
+        return group.blockedDomains || [];
+    },
+    getBlacklistedLinks: async (chatId) => {
+        const group = await database.getGroup(chatId);
+        return group.blockedLinks || [];
+    },
 };
+module.exports = database;

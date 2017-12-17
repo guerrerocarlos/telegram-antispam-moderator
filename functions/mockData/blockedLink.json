@@ -1,12 +1,12 @@
 {
   "update_id": 358037070,
   "message": {
-    "message_id": 4000,
+    "message_id": 75,
     "from": {
       "id": 96351452,
       "is_bot": false,
-      "first_name": "\u0418\u043b\u044c\u044f",
-      "last_name": "\u0421\u043e\u043b\u043e\u0445\u0438\u043d",
+      "first_name": "FNAME",
+      "last_name": "SNAME",
       "username": "solohin_ilya",
       "language_code": "en"
     },
@@ -16,7 +16,7 @@
       "type": "supergroup"
     },
     "date": 1513100650,
-    "text": "http://httpbin.org/user-agent?test=1 http://something.ru/helloworldtestme http://third333.org/user-agent?test=1",
+    "text": "http://httpbin.org/user-agent?test=1 http://second2.org/user-agent?test=1 http://third333.org/user-agent?test=1",
     "entities": [
       {
         "offset": 0,
