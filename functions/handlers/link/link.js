@@ -1,9 +1,9 @@
 "use strict";
 //libs
-const parseLink = require('parse-link');
 //modules
 const bot = require('../../components/bot');
 const db = require('../../components/db');
+const getDomain = require('../../components/getDomain');
 const extractEnteties = require('../../components/extractEnteties');
 //init
 module.exports = async function (message) {
@@ -16,7 +16,7 @@ module.exports = async function (message) {
     }
 
     const [link] = links;
-    const domain = parseLink(link).hostname;
+    const domain = getDomain(link);
     const {managers} = await db.getGroup(chat.id);
 
     const newMessageText = `В собщении содержится ссылка [${link}](${link}).
@@ -44,7 +44,7 @@ module.exports = async function (message) {
                         [
                             {
                                 text: 'Бан+Домен в blacklist ' + domain,
-                                url: 'http://google.com'
+                                callback_data: `blockDomain_${chat.id}_${message_id}`
                             },
                             {
                                 text: 'Бан+Ссылку в blacklist',

@@ -26,6 +26,18 @@ module.exports = {
             }, {merge: true});
         });
     },
+    blackListDomain: ({chatId, blockedString}) => {
+        const docRef = db.collection('groups').doc('' + chatId);
+        return docRef.get().then(doc => {
+            let blockedDomains = (doc.data() || {}).blockedDomains || [];
+            blockedDomains.push(blockedString);
+            blockedDomains = Array.from(new Set(blockedDomains));
+
+            return docRef.set({
+                blockedDomains
+            }, {merge: true});
+        });
+    },
     getGroup: async (chatId) => {
         const docRef = db.collection('groups').doc('' + chatId);
         const doc = await docRef.get();
