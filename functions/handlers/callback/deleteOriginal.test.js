@@ -11,9 +11,9 @@ const bot = require('../../components/bot');
 
 describe('Delete', () => {
     beforeEach(done => {
-        bot.forwardMessage.mockClear();
-        bot.sendMessage.mockClear();
-
+        for (let key in bot){
+            bot[key].mockClear&&bot[key].mockClear()
+        }
         const mockRequest = getMockData('deleteOriginalCallback');
         handle(mockRequest).then(() => {
             done();
@@ -35,5 +35,22 @@ describe('Delete', () => {
 
         assert.strictEqual(-1001245604961, chatId3);
         assert.strictEqual(10, messageId3);
+    });
+
+    it('should restrict chat member', () => {
+        assert.strictEqual(1, bot.restrictChatMember.mock.calls.length);
+        const [[chatId, userId, {can_send_messages}]] = bot.restrictChatMember.mock.calls;
+
+        assert.strictEqual(-1001245604961, chatId);
+        assert.strictEqual(100000, userId);
+        assert.strictEqual(false, can_send_messages);
+    });
+    it('should send success message', () => {
+        assert.strictEqual(1, bot.sendMessage.mock.calls.length);
+        const [[chatId, text]] = bot.sendMessage.mock.calls;
+
+        assert.strictEqual(96351452, chatId);
+        assert.include(text, 'FNAME');
+        assert.include(text, 'SNAME');
     });
 });

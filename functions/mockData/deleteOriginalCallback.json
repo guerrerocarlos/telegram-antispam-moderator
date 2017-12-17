@@ -43,10 +43,10 @@
         },
         "date": 1513458021,
         "forward_from": {
-          "id": 96351452,
+          "id": 100000,
           "is_bot": false,
-          "first_name": "\u0418\u043b\u044c\u044f",
-          "last_name": "\u0421\u043e\u043b\u043e\u0445\u0438\u043d",
+          "first_name": "FNAME",
+          "last_name": "SNAME",
           "username": "solohin_ilya",
           "language_code": "en"
         },

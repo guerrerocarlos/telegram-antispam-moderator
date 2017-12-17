@@ -21,7 +21,7 @@ module.exports = async function (message) {
 
     const newMessageText = `В собщении содержится ссылка [${link}](${link}).
 Сообщение можно просто удалить, удалить блокировкой ссылки или всего домена.
-На автора можно повесить запрет сообщений или запрет на ссылки, стикеры, картинки и документы в сообщениях.`;
+Автор будет забанен.`;
 
     const messagePromises = managers.map(async function (managerId) {
         const forwardedMessage = await bot.forwardMessage(managerId, chat.id, message_id);
@@ -33,7 +33,7 @@ module.exports = async function (message) {
                     [
                         [
                             {
-                                text: 'Все ок',
+                                text: 'Не спам',
                                 callback_data: `approve_${chat.id}_${message_id}`
                             },
                             {
