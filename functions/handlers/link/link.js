@@ -53,7 +53,7 @@ module.exports = async function (message) {
     if (links.length === 0) return Promise.resolve(null);
 
     //get managers from DB
-    const {managers} = await db.getGroup(chat.id);
+    const managers = await db.getManagers(chat.id);
 
     //check for backlisted link or domain
     const blacklisted = await isBlacklisted(message);

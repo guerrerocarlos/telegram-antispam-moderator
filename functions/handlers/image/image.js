@@ -10,7 +10,7 @@ module.exports = async function (message) {
 
     if (!photo) return Promise.resolve(null);
 
-    const {managers} = await db.getGroup(chat.id);
+    const managers = await db.getManagers(chat.id);
 
     const newMessageText = `Одобрите изображение или забаньте автора.`;
 

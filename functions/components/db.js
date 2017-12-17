@@ -13,21 +13,30 @@ const CACHE_TIME = 5 * 60 * 1000;
 const db = admin.firestore();
 const cache = {};
 
-const addSomethingToGroupList = (chatId, listName, value) => {
+const addSomethingToGroupList = async (chatId, listName, value) => {
     const docRef = db.collection('groups').doc('' + chatId);
-    return docRef.get().then(doc => {
-        let itemsList = (doc.data() || {})[listName] || [];
-        itemsList.push(value);
+    let doc = await docRef.get();
 
-        //unify
-        itemsList = Array.from(new Set(itemsList));
+    let data;
+    if (!doc.exists) {
+        await docRef.set({'init': 'init'});
+        data = {};
+    }else{
+        data = doc.data();
+    }
 
-        database.dropCache(chatId);
+    let itemsList = data[listName] || [];
+    itemsList.push(value);
 
-        const updateData = {};
-        updateData[listName] = itemsList;
-        return docRef.set(updateData, {merge: true});
-    });
+    //unify
+    itemsList = Array.from(new Set(itemsList));
+
+    database.dropCache(chatId);
+
+    const updateData = {};
+    updateData[listName] = itemsList;
+    await docRef.set(updateData, {merge: true});
+    return true;
 };
 
 const getSomeGroupList = async function (chatId, listName) {
@@ -62,14 +71,23 @@ const database = {
         }
 
         const docRef = db.collection('groups').doc('' + chatId);
-        const doc = await docRef.get();
-        const data = (doc.data() || {});
+
+        let doc = await docRef.get();
+        let data;
+
+        if (!doc.exists) {
+            await docRef.set({'init': 'init'});
+            data = {};
+        }else{
+            data = doc.data();
+        }
 
         cache[cacheKey] = data;
         cache[cacheKey].expiration = +new Date + CACHE_TIME;
 
         return data;
     },
+    getManagers: (chatId) => getSomeGroupList(chatId, 'managers'),
     getBlacklistedDomains: (chatId) => getSomeGroupList(chatId, 'blockedDomains'),
     getBlacklistedLinks: (chatId) => getSomeGroupList(chatId, 'blockedLinks'),
     getApprovedStickerPacks: (chatId) => getSomeGroupList(chatId, 'approvedStickerPacks'),

@@ -5,7 +5,8 @@
     "serve": "firebase serve --only functions",
     "shell": "firebase experimental:functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "npm run build; firebase deploy --only functions",
+    "build": "cp package.json ../dist; babel . --out-dir ../dist; cd ../dist; npm i --production; cd ../functions;",
     "logs": "firebase functions:log"
   },
   "dependencies": {
@@ -17,8 +18,11 @@
   },
   "private": true,
   "devDependencies": {
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-es2015-mod": "^6.6.0",
+    "babel-preset-es3": "^1.0.1",
     "chai": "^4.1.2",
     "jest": "^21.2.1"
   }

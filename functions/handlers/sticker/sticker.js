@@ -35,7 +35,7 @@ module.exports = async function (message) {
 
     if (!sticker) return Promise.resolve(null);
 
-    const {managers} = await db.getGroup(chat.id);
+    const managers = await db.getManagers(chat.id);
 
     const listed = await isListed(message.sticker.set_name, chat.id);
     if (listed.whitelisted) {

@@ -22,7 +22,7 @@ describe('New mention', () => {
             done();
         });
     });
-    it('should forward message to all managers', () => {
+    it.skip('should forward message to all managers', () => {
         assert.strictEqual(2, bot.forwardMessage.mock.calls.length);
         const [[chatId1, fromChatId1, messageId1], [chatId2, fromChatId2, messageId2]] = bot.forwardMessage.mock.calls;
         assert.strictEqual(12399999, chatId1);

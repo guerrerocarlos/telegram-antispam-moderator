@@ -2,5 +2,10 @@
   "plugins": [
     "transform-async-to-generator",
     "syntax-async-functions"
+  ],
+  "ignore": [
+    "**/*.test.js",
+    "./node_modules/**",
+    "./mockData/**"
   ]
 }

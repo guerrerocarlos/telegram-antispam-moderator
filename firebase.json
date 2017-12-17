@@ -11,8 +11,8 @@
       "**/node_modules/**"
     ]
   }
-//,
-//  "functions": {
-//    "source": "dist/functions"
-//  }
+,
+  "functions": {
+    "source": "dist"
+  }
 }
