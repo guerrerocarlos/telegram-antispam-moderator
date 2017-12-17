@@ -4,13 +4,54 @@
 const bot = require('../../components/bot');
 const db = require('../../components/db');
 //init
+
+const isListed = async function (stickerPackName, chatId) {
+    const [whiteList, blackList] = await Promise.all([
+        db.getApprovedStickerPacks(chatId),
+        db.getBlacklistedStickerPacks(chatId),
+    ]);
+
+    if (whiteList.indexOf(stickerPackName) !== -1) {
+        return {
+            blacklisted: false,
+            whitelisted: true,
+        }
+    } else if (blackList.indexOf(stickerPackName) !== -1) {
+        return {
+            blacklisted: true,
+            whitelisted: false,
+        }
+    } else {
+        return {
+            blacklisted: false,
+            whitelisted: false,
+        }
+    }
+};
+
 module.exports = async function (message) {
     if (!message) return;
-    const {sticker, message_id, chat} = message;
+    const {sticker, message_id, chat, from} = message;
 
     if (!sticker) return Promise.resolve(null);
 
     const {managers} = await db.getGroup(chat.id);
+
+    const listed = await isListed(message.sticker.set_name, chat.id);
+    if (listed.whitelisted) {
+        return Promise.resolve(null);
+    } else if (listed.blacklisted) {
+        const promises = [];
+        promises.push(bot.deleteMessage(chat.id, message_id));
+        promises.push(bot.restrictChatMember(chat.id, from.id, {can_send_messages: false}));
+
+        for (let managerId of managers) {
+            promises.push(bot.sendMessage(managerId, `Сообщение, содержащее стикер из запрещенного пака https://telegram.me/addstickers/${message.sticker.set_name} удалено. 
+${from.first_name} ${from.last_name} лишен возможности писать сообщения.`));
+        }
+
+        return await Promise.all(promises);
+    }
 
     const newMessageText = `Добавлен стикер из неизвестного стикерпака.
 Одобрите стикерпак. Или запретите - все применившие его тут же получат запрет на отправку сообщений.`;

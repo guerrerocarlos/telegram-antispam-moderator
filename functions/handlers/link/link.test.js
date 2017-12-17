@@ -47,11 +47,6 @@ describe('New link', () => {
         const approveCallback = reply_markup.inline_keyboard[0][0].callback_data;
         assert.strictEqual('approve_-100000009999_4000', approveCallback);
     });
-    it('should create delete link', () => {
-        const [, , {reply_markup}] = bot.sendMessage.mock.calls[0];
-        const deleteCallback = reply_markup.inline_keyboard[0][1].callback_data;
-        assert.strictEqual('deleteOriginal_-100000009999_4000', deleteCallback);
-    });
     it('should create domain blacklist link', () => {
         const [, , {reply_markup}] = bot.sendMessage.mock.calls[0];
         const deleteCallback = reply_markup.inline_keyboard[1][0].callback_data;

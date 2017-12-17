@@ -70,7 +70,9 @@ const database = {
 
         return data;
     },
-    getBlacklistedDomains: (chatId) => getSomeGroupList('blockedDomains'),
-    getBlacklistedLinks: (chatId) => getSomeGroupList('blockedLinks'),
+    getBlacklistedDomains: (chatId) => getSomeGroupList(chatId, 'blockedDomains'),
+    getBlacklistedLinks: (chatId) => getSomeGroupList(chatId, 'blockedLinks'),
+    getApprovedStickerPacks: (chatId) => getSomeGroupList(chatId, 'approvedStickerPacks'),
+    getBlacklistedStickerPacks: (chatId) => getSomeGroupList(chatId, 'blockedStickers'),
 };
 module.exports = database;

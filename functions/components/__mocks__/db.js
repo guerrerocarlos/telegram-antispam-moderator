@@ -11,6 +11,18 @@ const db = {
         }
         throw 'Unexpected chatId ' + chatId;
     }),
+    getApprovedStickerPacks: jest.fn().mockImplementation(chatId => {
+        if(chatId === -100000009999){
+            return Promise.resolve(['god_bless_stickerpack'])
+        }
+        throw 'Unexpected chatId ' + chatId;
+    }),
+    getBlacklistedStickerPacks: jest.fn().mockImplementation(chatId => {
+        if(chatId === -100000009999){
+            return Promise.resolve(['badass_stickerpack'])
+        }
+        throw 'Unexpected chatId ' + chatId;
+    }),
     getBlacklistedLinks: jest.fn().mockImplementation(chatId => {
         if(chatId === -100000009999){
             return Promise.resolve(['http://second2.org/user-agent?test=1'])
