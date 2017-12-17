@@ -38,6 +38,18 @@ module.exports = {
             }, {merge: true});
         });
     },
+    blackListLink: ({chatId, blockedString}) => {
+        const docRef = db.collection('groups').doc('' + chatId);
+        return docRef.get().then(doc => {
+            let blockedLinks = (doc.data() || {}).blockedLinks || [];
+            blockedLinks.push(blockedString);
+            blockedLinks = Array.from(new Set(blockedLinks));
+
+            return docRef.set({
+                blockedLinks
+            }, {merge: true});
+        });
+    },
     getGroup: async (chatId) => {
         const docRef = db.collection('groups').doc('' + chatId);
         const doc = await docRef.get();

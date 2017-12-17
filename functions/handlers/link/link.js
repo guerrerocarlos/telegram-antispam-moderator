@@ -48,7 +48,7 @@ module.exports = async function (message) {
                             },
                             {
                                 text: 'Бан+Ссылку в blacklist',
-                                url: 'http://google.com'
+                                callback_data: `blockLink_${chat.id}_${message_id}`
                             },
                         ]
                     ]

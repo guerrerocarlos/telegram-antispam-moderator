@@ -1,6 +1,7 @@
 "use strict";
 const db = {
     addManager: jest.fn().mockImplementation(() => Promise.resolve({some: 'data'})),
+    blackListLink: jest.fn().mockImplementation(() => Promise.resolve({some: 'data'})),
     blackListDomain: jest.fn().mockImplementation(() => Promise.resolve({some: 'data'})),
     getGroup: jest.fn().mockImplementation(() => Promise.resolve({
         managers: [12399999, 12377777],
