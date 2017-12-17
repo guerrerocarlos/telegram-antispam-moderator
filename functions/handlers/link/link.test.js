@@ -70,8 +70,8 @@ describe('Blacklisted link', () => {
         });
     });
     it('should notify all managers', () => {
-        assert.strictEqual(2, bot.sendMessage.mock.calls.length);
-        const [call1, call2] = bot.sendMessage.mock.calls;
+        assert.strictEqual(3, bot.sendMessage.mock.calls.length);
+        const [call1, call2, call3] = bot.sendMessage.mock.calls;
 
         assert.strictEqual(12399999, call1[0]);
         assert.include(call1[1], 'http://second2.org/user-agent?test=1');
@@ -82,6 +82,8 @@ describe('Blacklisted link', () => {
         assert.include(call2[1], 'http://second2.org/user-agent?test=1');
         assert.include(call2[1], 'FNAME');
         assert.include(call2[1], 'SNAME');
+
+        assert.strictEqual(-100000009999, call3[0]);
     });
     it('should delete message', () => {
         assert.strictEqual(1, bot.deleteMessage.mock.calls.length);
@@ -113,8 +115,8 @@ describe('Blacklisted domain', () => {
         });
     });
     it('should notify all managers', () => {
-        assert.strictEqual(2, bot.sendMessage.mock.calls.length);
-        const [call1, call2] = bot.sendMessage.mock.calls;
+        assert.strictEqual(3, bot.sendMessage.mock.calls.length);
+        const [call1, call2, call3] = bot.sendMessage.mock.calls;
 
         assert.strictEqual(12399999, call1[0]);
         assert.include(call1[1], 'blacklisted.com/myuseragent?test=134');
@@ -125,8 +127,10 @@ describe('Blacklisted domain', () => {
         assert.include(call2[1], 'blacklisted.com/myuseragent?test=134');
         assert.include(call2[1], 'FNAME');
         assert.include(call2[1], 'SNAME');
+
+        assert.strictEqual(-100000009999, call3[0]);
     });
-    it('should delete message',()=>{
+    it('should delete message', () => {
         assert.strictEqual(1, bot.deleteMessage.mock.calls.length);
         const [[chatId, messageId]] = bot.deleteMessage.mock.calls;
 

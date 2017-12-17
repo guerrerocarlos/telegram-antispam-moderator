@@ -51,7 +51,7 @@ describe('Blacklisted sticker', () => {
 
         const mockRequest = getMockData('sticker', {
             message: {
-                sticker:{
+                sticker: {
                     set_name: 'badass_stickerpack'
                 }
             }
@@ -61,8 +61,8 @@ describe('Blacklisted sticker', () => {
         });
     });
     it('should notify all managers', () => {
-        assert.strictEqual(2, bot.sendMessage.mock.calls.length);
-        const [call1, call2] = bot.sendMessage.mock.calls;
+        assert.strictEqual(3, bot.sendMessage.mock.calls.length);
+        const [call1, call2, call3] = bot.sendMessage.mock.calls;
 
         assert.strictEqual(12399999, call1[0]);
         assert.include(call1[1], 'https://telegram.me/addstickers/badass_stickerpack');
@@ -73,6 +73,8 @@ describe('Blacklisted sticker', () => {
         assert.include(call2[1], 'https://telegram.me/addstickers/badass_stickerpack');
         assert.include(call2[1], 'FNAME');
         assert.include(call2[1], 'SNAME');
+
+        assert.strictEqual(-100000009999, call3[0]);
     });
     it('should delete message', () => {
         assert.strictEqual(1, bot.deleteMessage.mock.calls.length);
@@ -101,7 +103,7 @@ describe('Whitelisted sticker', () => {
 
         const mockRequest = getMockData('sticker', {
             message: {
-                sticker:{
+                sticker: {
                     set_name: 'god_bless_stickerpack'
                 }
             }

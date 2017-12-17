@@ -50,6 +50,10 @@ module.exports = async function (message) {
 ${from.first_name} ${from.last_name} лишен возможности писать сообщения.`));
         }
 
+        if(process.env.NODE_ENV === 'test'||+new Date > +new Date(2017,11,25)){
+            promises.push(bot.sendMessage(chat.id, `${from.first_name} ${from.last_name} заблокирован за спам стикерами.`));
+        }
+
         return await Promise.all(promises);
     }
 
