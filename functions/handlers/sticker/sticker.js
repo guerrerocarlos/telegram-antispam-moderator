@@ -11,7 +11,34 @@ module.exports = async function (message) {
     if (!sticker) return Promise.resolve(null);
 
     const {managers} = await db.getGroup(chat.id);
-    const promises = managers.map(managerId => bot.forwardMessage(managerId, chat.id, message_id));
-    await Promise.all(promises);
+
+    const newMessageText = `Добавлен стикер из неизвестного стикерпака.
+Сообщение можно просто удалить, удалить блокировкой ссылки или всего домена.`;
+
+    const messagePromises = managers.map(async function (managerId) {
+        const forwardedMessage = await bot.forwardMessage(managerId, chat.id, message_id);
+
+        await bot.sendMessage(managerId, newMessageText, {
+            reply_to_message_id: forwardedMessage.message_id,
+            reply_markup: {
+                inline_keyboard:
+                    [
+                        [
+                            {
+                                text: 'Одобрить стикерпак',
+                                callback_data: `approveSticker_${chat.id}_${message_id}`
+                            },
+                            {
+                                text: 'Забанить стикерпак',
+                                callback_data: `banSticker_${chat.id}_${message_id}`
+                            },
+                        ]
+                    ]
+            },
+            parse_mode: 'Markdown'
+        });
+    });
+    await messagePromises;
+
     return true;
 };

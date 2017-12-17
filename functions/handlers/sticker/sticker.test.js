@@ -33,4 +33,14 @@ describe('New mention', () => {
         assert.strictEqual(-8000000089, fromChatId2);
         assert.strictEqual(90009, messageId2);
     });
+    it('should create approve link', () => {
+        const [, , {reply_markup}] = bot.sendMessage.mock.calls[0];
+        const approveCallback = reply_markup.inline_keyboard[0][0].callback_data;
+        assert.strictEqual('approveSticker_-8000000089_90009', approveCallback);
+    });
+    it('should create ban link', () => {
+        const [, , {reply_markup}] = bot.sendMessage.mock.calls[0];
+        const approveCallback = reply_markup.inline_keyboard[0][1].callback_data;
+        assert.strictEqual('banSticker_-8000000089_90009', approveCallback);
+    });
 });

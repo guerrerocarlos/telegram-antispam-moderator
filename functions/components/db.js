@@ -13,49 +13,40 @@ const CACHE_TIME = 5 * 60 * 1000;
 const db = admin.firestore();
 const cache = {};
 
+const addSomethingToGroupList = (chatId, listName, value) => {
+    const docRef = db.collection('groups').doc('' + chatId);
+    return docRef.get().then(doc => {
+        let itemsList = (doc.data() || {})[listName] || [];
+        itemsList.push(value);
+
+        //unify
+        itemsList = Array.from(new Set(itemsList));
+
+        database.dropCache(chatId);
+
+        const updateData = {};
+        updateData[listName] = itemsList;
+        return docRef.set(updateData, {merge: true});
+    });
+};
+
+const getSomeGroupList = async function (chatId, listName) {
+    const group = await database.getGroup(chatId);
+    return group[listName] || [];
+};
 
 const database = {
     addManager: ({chatId, managerId}) => {
-        const docRef = db.collection('groups').doc('' + chatId);
-        return docRef.get().then(doc => {
-            let managers = (doc.data() || {}).managers || [];
-            managers.push(managerId);
-            managers = Array.from(new Set(managers));
-
-            database.dropCache(chatId);
-
-            return docRef.set({
-                managers
-            }, {merge: true});
-        });
+        return addSomethingToGroupList(chatId, 'managers', managerId);
     },
     blackListDomain: ({chatId, blockedString}) => {
-        const docRef = db.collection('groups').doc('' + chatId);
-        return docRef.get().then(doc => {
-            let blockedDomains = (doc.data() || {}).blockedDomains || [];
-            blockedDomains.push(blockedString);
-            blockedDomains = Array.from(new Set(blockedDomains));
-
-            database.dropCache(chatId);
-
-            return docRef.set({
-                blockedDomains
-            }, {merge: true});
-        });
+        return addSomethingToGroupList(chatId, 'blockedDomains', blockedString);
     },
     blackListLink: ({chatId, blockedString}) => {
-        const docRef = db.collection('groups').doc('' + chatId);
-        return docRef.get().then(doc => {
-            let blockedLinks = (doc.data() || {}).blockedLinks || [];
-            blockedLinks.push(blockedString);
-            blockedLinks = Array.from(new Set(blockedLinks));
-
-            database.dropCache(chatId);
-
-            return docRef.set({
-                blockedLinks
-            }, {merge: true});
-        });
+        return addSomethingToGroupList(chatId, 'blockedLinks', blockedString);
+    },
+    approveStickerPack: ({chatId, stickerPackName}) => {
+        return addSomethingToGroupList(chatId, 'approvedStickerPacks', stickerPackName);
     },
     dropCache: (chatId) => {
         delete cache['getGroup_' + chatId];
@@ -76,13 +67,7 @@ const database = {
 
         return data;
     },
-    getBlacklistedDomains: async (chatId) => {
-        const group = await database.getGroup(chatId);
-        return group.blockedDomains || [];
-    },
-    getBlacklistedLinks: async (chatId) => {
-        const group = await database.getGroup(chatId);
-        return group.blockedLinks || [];
-    },
+    getBlacklistedDomains: (chatId) => getSomeGroupList('blockedDomains'),
+    getBlacklistedLinks: (chatId) => getSomeGroupList('blockedLinks'),
 };
 module.exports = database;
