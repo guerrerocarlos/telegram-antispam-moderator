@@ -33,4 +33,14 @@ describe('Photo', () => {
         assert.strictEqual(-100000999999, fromChatId2);
         assert.strictEqual(899, messageId2);
     });
+    it('should create approve link', () => {
+        const [, , {reply_markup}] = bot.sendMessage.mock.calls[0];
+        const approveCallback = reply_markup.inline_keyboard[0][0].callback_data;
+        assert.strictEqual('approve_-100000999999_899', approveCallback);
+    });
+    it('should create ban link', () => {
+        const [, , {reply_markup}] = bot.sendMessage.mock.calls[0];
+        const approveCallback = reply_markup.inline_keyboard[0][1].callback_data;
+        assert.strictEqual('block_-100000999999_899', approveCallback);
+    });
 });

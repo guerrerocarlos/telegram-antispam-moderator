@@ -11,7 +11,33 @@ module.exports = async function (message) {
     if (!photo) return Promise.resolve(null);
 
     const {managers} = await db.getGroup(chat.id);
-    const promises = managers.map(managerId => bot.forwardMessage(managerId, chat.id, message_id));
-    await Promise.all(promises);
+
+    const newMessageText = `Одобрите изображение или забаньте автора.`;
+
+    const messagePromises = managers.map(async function (managerId) {
+        const forwardedMessage = await bot.forwardMessage(managerId, chat.id, message_id);
+
+        await bot.sendMessage(managerId, newMessageText, {
+            reply_to_message_id: forwardedMessage.message_id,
+            reply_markup: {
+                inline_keyboard:
+                    [
+                        [
+                            {
+                                text: 'Одобрить',
+                                callback_data: `approve_${chat.id}_${message_id}`
+                            },
+                            {
+                                text: 'Удалить и забанить',
+                                callback_data: `block_${chat.id}_${message_id}`
+                            },
+                        ]
+                    ]
+            },
+            parse_mode: 'Markdown'
+        });
+    });
+    await messagePromises;
+
     return true;
 };
