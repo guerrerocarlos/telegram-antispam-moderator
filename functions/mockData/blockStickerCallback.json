@@ -43,10 +43,10 @@
         },
         "date": 1513531906,
         "forward_from": {
-          "id": 96351452,
+          "id": 30000,
           "is_bot": false,
-          "first_name": "\u0418\u043b\u044c\u044f",
-          "last_name": "\u0421\u043e\u043b\u043e\u0445\u0438\u043d",
+          "first_name": "FNAME",
+          "last_name": "SNAME",
           "username": "solohin_ilya",
           "language_code": "en"
         },
@@ -55,7 +55,7 @@
           "width": 512,
           "height": 512,
           "emoji": "\ud83d\udcaa",
-          "set_name": "ituber",
+          "set_name": "badstickerpack",
           "thumb": {
             "file_id": "AAQCABPvueMNAASne4UqvC8_UcMTAAIC",
             "file_size": 6596,
@@ -69,6 +69,6 @@
       "text": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d \u0441\u0442\u0438\u043a\u0435\u0440 \u0438\u0437 \u043d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e\u0433\u043e \u0441\u0442\u0438\u043a\u0435\u0440\u043f\u0430\u043a\u0430.\n\u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u043c\u043e\u0436\u043d\u043e \u043f\u0440\u043e\u0441\u0442\u043e \u0443\u0434\u0430\u043b\u0438\u0442\u044c, \u0443\u0434\u0430\u043b\u0438\u0442\u044c \u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u043a\u043e\u0439 \u0441\u0441\u044b\u043b\u043a\u0438 \u0438\u043b\u0438 \u0432\u0441\u0435\u0433\u043e \u0434\u043e\u043c\u0435\u043d\u0430."
     },
     "chat_instance": "-2495469718657385359",
-    "data": "approveSticker_-1001245604961_25"
+    "data": "blockSticker_-1001245604961_25"
   }
 }

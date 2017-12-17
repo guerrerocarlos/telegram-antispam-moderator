@@ -2,6 +2,7 @@
 const db = {
     addManager: jest.fn().mockImplementation(() => Promise.resolve({some: 'data'})),
     blackListLink: jest.fn().mockImplementation(() => Promise.resolve({some: 'data'})),
+    blackListSticker: jest.fn().mockImplementation(() => Promise.resolve({some: 'data'})),
     approveStickerPack: jest.fn().mockImplementation(() => Promise.resolve({some: 'data'})),
     blackListDomain: jest.fn().mockImplementation(() => Promise.resolve({some: 'data'})),
     getBlacklistedDomains: jest.fn().mockImplementation(chatId => {

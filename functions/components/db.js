@@ -45,6 +45,9 @@ const database = {
     blackListLink: ({chatId, blockedString}) => {
         return addSomethingToGroupList(chatId, 'blockedLinks', blockedString);
     },
+    blackListSticker: ({chatId, blockedString}) => {
+        return addSomethingToGroupList(chatId, 'blockedStickers', blockedString);
+    },
     approveStickerPack: ({chatId, stickerPackName}) => {
         return addSomethingToGroupList(chatId, 'approvedStickerPacks', stickerPackName);
     },

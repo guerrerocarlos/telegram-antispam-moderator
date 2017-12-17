@@ -13,7 +13,7 @@ module.exports = async function (message) {
     const {managers} = await db.getGroup(chat.id);
 
     const newMessageText = `Добавлен стикер из неизвестного стикерпака.
-Сообщение можно просто удалить, удалить блокировкой ссылки или всего домена.`;
+Одобрите стикерпак. Или запретите - все применившие его тут же получат запрет на отправку сообщений.`;
 
     const messagePromises = managers.map(async function (managerId) {
         const forwardedMessage = await bot.forwardMessage(managerId, chat.id, message_id);
@@ -30,7 +30,7 @@ module.exports = async function (message) {
                             },
                             {
                                 text: 'Забанить стикерпак',
-                                callback_data: `banSticker_${chat.id}_${message_id}`
+                                callback_data: `blockSticker_${chat.id}_${message_id}`
                             },
                         ]
                     ]

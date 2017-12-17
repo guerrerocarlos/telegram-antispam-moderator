@@ -41,6 +41,6 @@ describe('New mention', () => {
     it('should create ban link', () => {
         const [, , {reply_markup}] = bot.sendMessage.mock.calls[0];
         const approveCallback = reply_markup.inline_keyboard[0][1].callback_data;
-        assert.strictEqual('banSticker_-8000000089_90009', approveCallback);
+        assert.strictEqual('blockSticker_-8000000089_90009', approveCallback);
     });
 });
