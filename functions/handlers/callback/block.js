@@ -13,9 +13,11 @@ module.exports = function ({message, payload: [originalChatId, originalMessageId
 
     originalChatId = parseInt(originalChatId);
 
+    let messageText = `Сообщение удалено.`;
+    if (forward_from) messageText += `\nАвтор лишен возможности писать сообщения.`
+
     return Promise.all([
-        bot.sendMessage(message.chat.id, `Сообщение удалено.
-${forward_from.first_name} ${forward_from.last_name} лишен возможности писать сообщения.`),
+        bot.sendMessage(message.chat.id, messageText),
         deleteOriginalAndBan({message, payload: [originalChatId, originalMessageId]}),
     ]);
 };

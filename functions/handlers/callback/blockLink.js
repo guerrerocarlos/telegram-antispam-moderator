@@ -14,9 +14,11 @@ module.exports = function ({message, payload: [originalChatId, originalMessageId
     const [link] = extractEnteties({text, entities}, 'url');
     originalChatId = parseInt(originalChatId);
 
+    let messageText = `Сообщение удалено. Любой, кто оставит ссылку ${link} будет заблокирован.`
+    if (forward_from) messageText += `\nАвтор лишен возможности писать сообщения.`
+
     return Promise.all([
-        bot.sendMessage(message.chat.id, `Сообщение удалено. Любой, кто оставит ссылку ${link} будет заблокирован.
-${forward_from.first_name} ${forward_from.last_name} лишен возможности писать сообщения.`),
+        bot.sendMessage(message.chat.id, messageText),
         deleteOriginalAndBan({message, payload: [originalChatId, originalMessageId]}),
         db.blackListLink({chatId: originalChatId, blockedString: link}),
     ]);

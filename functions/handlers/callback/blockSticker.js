@@ -15,7 +15,7 @@ module.exports = function ({message, payload: [originalChatId, originalMessageId
 
     return Promise.all([
         bot.sendMessage(message.chat.id, `Сообщение удалено. Любой, кто будет использовать стикерпак ${stickerpack}, будет заблокирован.
-${forward_from.first_name} ${forward_from.last_name} лишен возможности писать сообщения.`),
+Автор лишен возможности писать сообщения.`),
         deleteOriginalAndBan({message, payload: [originalChatId, originalMessageId]}),
         db.blackListSticker({chatId: originalChatId, blockedString: stickerpack}),
     ]);

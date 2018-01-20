@@ -9,9 +9,13 @@ module.exports = function ({message, payload: [originalChatId, originalMessageId
     originalChatId = parseInt(originalChatId);
     originalMessageId = parseInt(originalMessageId);
 
+    const banPromise = forwardFrom
+        ?bot.restrictChatMember(originalChatId, forwardFrom.id, {can_send_messages: false})
+        :Promise.resolve();
+
     return Promise.all([
         deleteControlMessages({message, payload: [originalChatId, originalMessageId]}),
         bot.deleteMessage(originalChatId, originalMessageId),
-        bot.restrictChatMember(originalChatId, forwardFrom.id, {can_send_messages: false}),
+        banPromise,
     ]);
 };
